@@ -3,9 +3,18 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { addToCart } from "../cart/cartSlice";
 import { fetchProducts } from "./productsSlice";
+import { useFavoritesStore } from "../favorites/favoritesStore";
 
 export default function Products() {
     const dispatch = useAppDispatch();
+
+    const favorites = useFavoritesStore(
+        (state) => state.favorites
+    );
+
+    const toggleFavorite = useFavoritesStore(
+        (state) => state.toggleFavorite
+    );
 
     const {
         items: products,
@@ -57,6 +66,20 @@ export default function Products() {
                                 alt={product.title}
                                 loading="lazy"
                             />
+
+                            <button
+                                className="btn-favorite"
+                                onClick={() => toggleFavorite(product)}
+                                title={
+                                    favorites.some((item) => item.id === product.id)
+                                        ? "Bỏ khỏi yêu thích"
+                                        : "Thêm vào yêu thích"
+                                }
+                            >
+                                {favorites.some((item) => item.id === product.id)
+                                    ? "❤️"
+                                    : "♡"}
+                            </button>
                         </div>
 
                         {product.category && (

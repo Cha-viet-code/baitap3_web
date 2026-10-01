@@ -2,6 +2,7 @@ import Products from "./features/products/Products";
 import Cart from "./features/cart/Cart";
 import { useAppSelector } from "./app/hooks";
 import "./App.css";
+import Favorites from "./features/favorites/Favorites";
 
 function App() {
   const cartItems = useAppSelector((state) => state.cart.items);
@@ -39,6 +40,7 @@ function App() {
         <div className="store-layout">
           <div className="products-container">
             <Products />
+            <Favorites />
           </div>
 
           <aside className="cart-sidebar" id="cart-section">
